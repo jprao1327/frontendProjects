@@ -1,0 +1,36 @@
+*{
+    padding:0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.item{
+    background-color: aqua;
+    border:10px solid #e11d48;
+
+}
+.container{
+    display: grid;
+    height: 600px;
+    background-color: rgb(209, 26, 206);
+    grid-template-columns:repeat(2,100px) ;
+    grid-template-rows: repeat(2,100px);
+    justify-content:space-around;
+    align-content:space-evenly;
+    
+}
+.item-1{
+ background-color: coral;
+
+}
+
+.item-2{
+
+    background-color: green;
+}
+.item-3{
+    background-color: bisque;
+
+}
+.item-4{
+    background-color: cornflowerblue;
+}
