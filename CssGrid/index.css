@@ -11,9 +11,10 @@
 .container{
     display: grid;
     background-color: rgb(209, 26, 206);
-    grid-template-columns:repeat(auto-fit,100px) ;
-    grid-template-rows: repeat(4,100px);
-
+    grid-template-columns:repeat(2,100px) ;
+    grid-template-rows: repeat(2,100px);
+    justify-content:space-around;
+    align-content:space-evenly;
     
 }
 .item-1{
