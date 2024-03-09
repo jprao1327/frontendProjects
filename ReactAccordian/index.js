@@ -1,5 +1,34 @@
 import './index.css'
 
+
+const faqsList = [
+    {
+      id: 0,
+      questionText: 'What is ISRO?',
+      answerText:
+        'ISRO stands for indian space research organization',
+    },
+    {
+      id: 1,
+      questionText: 'where is it located?',
+      answerText:
+        'It is located in Sriharikota of Andra Pradesh.',
+    },
+    {
+      id: 2,
+      questionText:
+        'who is the founding father of ISRO?',
+      answerText:
+        'Dr Vikram A Sarabhai is considered as the founding father of space programmes in India.',
+    },
+    {
+      id: 3,
+      questionText: 'when is ISRO Formed?',
+      answerText:
+        'ISRO was formed on August 15, 1969.',
+    },
+  ]
+
 const FaqItem = props => {
   const {faqDetails, onButtonClicked} = props
   const {questionText, buttonClicked, id, answerText} = faqDetails
