@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confitte</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="cookie-card">
+            <span class="title">🍪 Cookie Notice</span>
+            <p class="description">We use cookies to ensure that we give you the best experience on our website. <a href="#">Read cookies policies</a>. </p>
+            <div class="actions">
+                <button class="pref">
+                    Manage your preferences;
+                </button>
+                <button id="btn"  class="accept">
+                    Accept
+                </button>
+            </div>
+        </div>
+          
+    </div>
+ 
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+    <script>
+            let ButtonEl=document.getElementById("btn")
+            ButtonEl.addEventListener("click",()=>{
+                const duration = 2 * 1000,
+  animationEnd = Date.now() + duration,
+  defaults = { startVelocity: 20, spread: 360, ticks: 60, zIndex: 0 };
+
+function randomInRange(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+const interval = setInterval(function() {
+  const timeLeft = animationEnd - Date.now();
+
+  if (timeLeft <= 0) {
+    return clearInterval(interval);
+  }
+
+  const particleCount = 50 * (timeLeft / duration);
+
+  // since particles fall down, start a bit higher than random
+  confetti(
+    Object.assign({}, defaults, {
+      particleCount,
+      origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+    })
+  );
+  confetti(
+    Object.assign({}, defaults, {
+      particleCount,
+      origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+    })
+  );
+}, 250);   })
+    </script>
+</body>
+</html>
