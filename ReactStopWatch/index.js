@@ -1,74 +1,96 @@
 import {Component} from 'react'
+
 import './index.css'
 
-let timerId = null
-
 class Stopwatch extends Component {
-  state = {timeElapsedInSeconds: 0}
+  state = {
+    isTimerRunning: false,
+    timeElapsedInSeconds: 0,
+  }
 
-  getTimeElapsedInSeconds = () => {
+  componentWillUnmount() {
+    clearInterval(this.timeInterval)
+  }
+
+  onResetTimer = () => {
+    clearInterval(this.timeInterval)
+    this.setState({isTimerRunning: false, timeElapsedInSeconds: 0})
+  }
+
+  onStopTimer = () => {
+    clearInterval(this.timeInterval)
+    this.setState({isTimerRunning: false})
+  }
+
+  updateTime = () => {
+    this.setState(prevState => ({
+      timeElapsedInSeconds: prevState.timeElapsedInSeconds + 1,
+    }))
+  }
+
+  onStartTimer = () => {
+    this.timeInterval = setInterval(this.updateTime, 1000)
+    this.setState({isTimerRunning: true})
+  }
+
+  renderSeconds = () => {
+    const {timeElapsedInSeconds} = this.state
+    const seconds = Math.floor(timeElapsedInSeconds % 60)
+
+    if (seconds < 10) {
+      return `0${seconds}`
+    }
+    return seconds
+  }
+
+  renderMinutes = () => {
     const {timeElapsedInSeconds} = this.state
     const minutes = Math.floor(timeElapsedInSeconds / 60)
-    const seconds = Math.floor(timeElapsedInSeconds % 60)
-    const stringifiedMinutes = minutes > 9 ? minutes : `0${minutes}`
-    const stringifiedSeconds = seconds > 9 ? seconds : `0${seconds}`
-    return `${stringifiedMinutes}:${stringifiedSeconds}`
-  }
 
-  startButtonClicked = () => {
-    console.log('Button CLicked')
-    clearInterval(timerId)
-    timerId = setInterval(() => {
-      this.setState(prevState => ({
-        timeElapsedInSeconds: prevState.timeElapsedInSeconds + 1,
-      }))
-    }, 1000)
-  }
-
-  stopButtonClicked = () => {
-    console.log('Button s CLicked')
-    clearInterval(timerId)
-  }
-
-  resetButtonClicked = () => {
-    clearInterval(timerId)
-    this.setState({timeElapsedInSeconds: 0})
+    if (minutes < 10) {
+      return `0${minutes}`
+    }
+    return minutes
   }
 
   render() {
+    const {isTimerRunning} = this.state
+    const time = `${this.renderMinutes()}:${this.renderSeconds()}`
+
     return (
       <div className="app-container">
-        <div className="stop-watch-container">
-          <h1 className="heading">Stopwatch</h1>
+        <div className="stopwatch-container">
+          <h1 className="stopwatch">Stopwatch</h1>
           <div className="timer-container">
-            <div className="timer-image-container">
+            <div className="timer">
               <img
+                className="timer-image"
                 src="https://assets.ccbp.in/frontend/react-js/stopwatch-timer.png"
                 alt="stopwatch"
               />
-              <span>Timer</span>
+              <p className="timer-text">Timer</p>
             </div>
-
-            <h1 className="timer">{this.getTimeElapsedInSeconds()}</h1>
-            <div className="button-container">
+            <h1 className="stopwatch-timer">{time}</h1>
+            <div className="timer-buttons">
               <button
-                className="button start"
-                onClick={this.startButtonClicked}
                 type="button"
+                className="start-button button"
+                onClick={this.onStartTimer}
+                disabled={isTimerRunning}
               >
                 Start
               </button>
               <button
-                className="button stop"
-                onClick={this.stopButtonClicked}
                 type="button"
+                className="stop-button button"
+                onClick={this.onStopTimer}
               >
                 Stop
               </button>
               <button
-                className="button reset"
-                onClick={this.resetButtonClicked}
                 type="button"
+                className="reset-button button"
+                onClick={this.onResetTimer}
               >
                 Reset
               </button>
@@ -81,3 +103,4 @@ class Stopwatch extends Component {
 }
 
 export default Stopwatch
+
